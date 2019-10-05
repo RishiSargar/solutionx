@@ -21,7 +21,47 @@ def getcdata():
         r=requests.get(url = 'http://52.168.129.85:3000/api/org.acme.tracker.Customer/'+str(cname))
         res=r.json()
         print res
-        return render_template('showcdata.html', info=res)
+        return render_template('showCustomer.html', info=res)
+@app.route('/getloandata', methods=['POST'])
+def getcdata():
+    if request.method=='POST':
+        result=request.form
+        cname=result['cid']
+        print cname
+        r=requests.get(url = 'http://52.168.129.85:3000/api/queries/selectLoanByCustomer?customerId='+str(cname))
+        res=r.json()
+        print res
+        return render_template('showcLoan.html', info=res)
+@app.route('/getpaymentdata', methods=['POST'])
+def getcdata():
+    if request.method=='POST':
+        result=request.form
+        cname=result['cid']
+        print cname
+        r=requests.get(url = 'http://52.168.129.85:3000/api/queries/selectPaymentRecordByCustomer?customerId='+str(cname))
+        res=r.json()
+        print res
+        return render_template('showPayment.html', info=res)
+app.route('/gettitledata', methods=['POST'])
+def getcdata():
+    if request.method=='POST':
+        result=request.form
+        cname=result['cid']
+        print cname
+        r=requests.get(url = 'http://52.168.129.85:3000/api/queries/selectTitleByCustomer?customerId='+str(cname))
+        res=r.json()
+        print res
+        return render_template('showTitle.html', info=res)
+app.route('/transfertitle', methods=['POST'])
+def getcdata():
+    if request.method=='POST':
+        result=request.form
+        cname=result['cid']
+        print cname
+        r=requests.get(url = 'http://52.168.129.85:3000/api/org.acme.tracker.titletransfer/'+str(cname))
+        res=r.json()
+        print res
+        return render_template('showTitleStatus.html', info=res)
 
 
 
